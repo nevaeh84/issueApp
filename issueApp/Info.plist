@@ -23,7 +23,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>issueApp://</string>
+				<string>issueApp</string>
 			</array>
 		</dict>
 	</array>
