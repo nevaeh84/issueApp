@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
     @IBAction func loginPress(){
         oauth.authorize(withCallbackURL: "issueApp://oauth-callback/github", scope: "user,repo", state: "state", success: {(credenial, _, _) in
             let token = credenial.oauthToken
-            print(token)
+            print("token: \(token)")
         }, failure: { error in
             print(error.localizedDescription)
         })
