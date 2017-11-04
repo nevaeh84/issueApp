@@ -7,20 +7,17 @@
 //
 
 import UIKit
-import OAuthSwift
 
 class LoginViewController: UIViewController {
-    
-    let oauth:OAuth2Swift = OAuth2Swift(consumerKey: "989bfcae35ac94eae42c",
-                                        consumerSecret: "6314de9cff2477f65a7991af35d305715a4c4fa0",
-                                        authorizeUrl: "https://github.com/login/oauth/authorize",
-                                        accessTokenUrl: "https://github.com/login/oauth/access_token",
-                                        responseType: "code")
+    static var viewController: LoginViewController{
+        guard let viewController = UIStoryboard(name:"main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else {
+            return LoginViewController()
+        }
+        return viewController
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
@@ -29,12 +26,9 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginPress(){
-        oauth.authorize(withCallbackURL: "issueApp://oauth-callback/github", scope: "user,repo", state: "state", success: {(credenial, _, _) in
-            let token = credenial.oauthToken
-            print("token: \(token)")
-        }, failure: { error in
-            print(error.localizedDescription)
-        })
+        App.api.getToken { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
     }
     
     
